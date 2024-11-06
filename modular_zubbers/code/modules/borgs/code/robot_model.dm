@@ -25,9 +25,33 @@
 	if (model_features && (TRAIT_R_LIGHT_WEIGHT in model_features))
 		cyborg.can_be_held = TRUE
 		cyborg.held_w_class = WEIGHT_CLASS_HUGE
+		cyborg.add_traits(list(TRAIT_CATLIKE_GRACE), INNATE_TRAIT)
+		cyborg.mob_size = MOB_SIZE_SMALL
 	else
 		cyborg.can_be_held = FALSE
 		cyborg.held_w_class = WEIGHT_CLASS_NORMAL
+		cyborg.remove_traits(list(TRAIT_CATLIKE_GRACE), INNATE_TRAIT)
+		cyborg.mob_size = MOB_SIZE_HUMAN
+
+// To load the correct walking sounds with out removing them
+/obj/item/robot_model/proc/update_footsteps()
+	var/mob/living/silicon/robot/cyborg = robot || loc
+	if (!istype(robot))
+		return
+
+	if (model_features)
+		// This is ugly but there is unironically not a better way
+		if (TRAIT_R_SQUADRUPED in model_features)
+			cyborg.AddElement(/datum/element/footstep, FOOTSTEP_ROBOT_SMALL, 6, -6, sound_vary = TRUE)
+		else
+			cyborg.RemoveElement(/datum/element/footstep, FOOTSTEP_ROBOT_SMALL, 6, -6, sound_vary = TRUE)
+
+		if (TRAIT_R_TALL in model_features)
+			cyborg.AddElement(/datum/element/footstep, FOOTSTEP_MOB_SHOE, 2, -6, sound_vary = TRUE)
+		else
+			cyborg.RemoveElement(/datum/element/footstep, FOOTSTEP_MOB_SHOE, 2, -6, sound_vary = TRUE)
+
+
 
 //For cyborgs that can rest
 // Must have a resting state!
@@ -285,6 +309,12 @@
 			SKIN_ICON = CYBORG_ICON_CLOWN_WIDE_BUBBER,
 			SKIN_FEATURES = list(TRAIT_R_UNIQUEWRECK, TRAIT_R_WIDE),
 		),
+		"Dullahan" = list(
+			SKIN_ICON_STATE = "dullahanclown",
+			SKIN_ICON = CYBORG_ICON_CLOWN_TALL_BUBBER,
+			SKIN_FEATURES = list(TRAIT_R_UNIQUEWRECK, TRAIT_R_UNIQUETIP, TRAIT_R_TALL),
+			DULLAHAN_HAT_OFFSET
+		),
 	)
 
 /obj/item/robot_model/standard/Initialize(mapload)
@@ -329,6 +359,10 @@
 			SKIN_FEATURES = list(TRAIT_R_UNIQUEWRECK, TRAIT_R_UNIQUETIP, TRAIT_R_TALL),
 			DULLAHAN_HAT_OFFSET
 		),
+		"Haydee" = list(
+			SKIN_ICON_STATE = "HaydeeMedFix",
+			SKIN_ICON = CYBORG_ICON_MED_HAYDEE_BUBBER,
+		),
 	)
 
 /obj/item/robot_model/engineering/Initialize(mapload)
@@ -356,6 +390,10 @@
 			SKIN_ICON = CYBORG_ICON_ENG_TALL_BUBBER,
 			SKIN_FEATURES = list(TRAIT_R_UNIQUEWRECK, TRAIT_R_UNIQUETIP, TRAIT_R_TALL),
 			DULLAHAN_HAT_OFFSET
+		),
+		"Haydee" = list(
+			SKIN_ICON_STATE = "haydeeengineclassic",
+			SKIN_ICON = CYBORG_ICON_ENG_HAYDEE_BUBBER,
 		),
 	)
 
@@ -385,6 +423,10 @@
 			SKIN_ICON = CYBORG_ICON_JANI_TALL_BUBBER,
 			SKIN_FEATURES = list(TRAIT_R_UNIQUEWRECK, TRAIT_R_UNIQUETIP, TRAIT_R_TALL),
 			DULLAHAN_HAT_OFFSET
+		),
+		"Haydee" = list(
+			SKIN_ICON_STATE = "HaydeeJannieClassic",
+			SKIN_ICON = CYBORG_ICON_JANI_HAYDEE_BUBBER,
 		),
 	)
 
@@ -427,6 +469,10 @@
 			SKIN_ICON = CYBORG_ICON_MINING_TALL_BUBBER,
 			SKIN_FEATURES = list(TRAIT_R_UNIQUEWRECK, TRAIT_R_UNIQUETIP, TRAIT_R_TALL),
 			DULLAHAN_HAT_OFFSET
+		),
+		"Haydee" = list(
+			SKIN_ICON_STATE = "HaydeeMinerClassic",
+			SKIN_ICON = CYBORG_ICON_MINING_HAYDEE_BUBBER,
 		),
 	)
 
@@ -496,6 +542,10 @@
 			SKIN_FEATURES = list(TRAIT_R_UNIQUEWRECK, TRAIT_R_UNIQUETIP, TRAIT_R_TALL),
 			DULLAHAN_HAT_OFFSET
 		),
+		"Haydee" = list(
+			SKIN_ICON_STATE = "HaydeePeaceClassic",
+			SKIN_ICON = CYBORG_ICON_PEACEKEEPER_HAYDEE_BUBBER,
+		),
 	)
 
 /obj/item/robot_model/service/Initialize(mapload)
@@ -529,6 +579,14 @@
 			SKIN_ICON = CYBORG_ICON_SERVICE_TALL_BUBBER,
 			SKIN_FEATURES = list(TRAIT_R_UNIQUEWRECK, TRAIT_R_UNIQUETIP, TRAIT_R_TALL),
 			DULLAHAN_HAT_OFFSET
+		),
+		"Haydee" = list(
+			SKIN_ICON_STATE = "HaydeeSlutviceClassic",
+			SKIN_ICON = CYBORG_ICON_SERVICE_HAYDEE_BUBBER,
+		),
+		"Bundee" = list(
+			SKIN_ICON_STATE = "HaydeeBunviceClassic",
+			SKIN_ICON = CYBORG_ICON_SERVICE_BUNDEE_BUBBER,
 		),
 	)
 
@@ -595,6 +653,10 @@
 			SKIN_FEATURES = list(TRAIT_R_UNIQUEWRECK, TRAIT_R_UNIQUETIP, TRAIT_R_TALL),
 			DULLAHAN_HAT_OFFSET
 		),
+		"Haydee" = list(
+			SKIN_ICON_STATE = "HaydeeSecClassic",
+			SKIN_ICON = CYBORG_ICON_SYNDIE_HAYDEE_BUBBER,
+		),
 
 	)
 
@@ -626,6 +688,10 @@
 			SKIN_ICON = CYBORG_ICON_SYNDIE_TALL_BUBBER,
 			SKIN_FEATURES = list(TRAIT_R_UNIQUEWRECK, TRAIT_R_UNIQUETIP, TRAIT_R_TALL),
 			DULLAHAN_HAT_OFFSET
+		),
+		"Haydee" = list(
+			SKIN_ICON_STATE = "HaydeeSecClassic",
+			SKIN_ICON = CYBORG_ICON_SYNDIE_HAYDEE_BUBBER,
 		),
 
 	)
@@ -661,6 +727,10 @@
 			SKIN_FEATURES = list(TRAIT_R_UNIQUEWRECK, TRAIT_R_UNIQUETIP, TRAIT_R_TALL),
 			DULLAHAN_HAT_OFFSET
 		),
+		"Haydee" = list(
+			SKIN_ICON_STATE = "HaydeeSecClassic",
+			SKIN_ICON = CYBORG_ICON_SYNDIE_HAYDEE_BUBBER,
+		),
 
 	)
 
@@ -688,6 +758,10 @@
 			SKIN_ICON = CYBORG_ICON_SYNDIE_TALL_BUBBER,
 			SKIN_FEATURES = list(TRAIT_R_UNIQUEWRECK, TRAIT_R_UNIQUETIP, TRAIT_R_TALL),
 			DULLAHAN_HAT_OFFSET
+		),
+		"Haydee" = list(
+			SKIN_ICON_STATE = "HaydeeSecClassic",
+			SKIN_ICON = CYBORG_ICON_SYNDIE_HAYDEE_BUBBER,
 		),
 
 	)
@@ -787,6 +861,17 @@
 #undef CYBORG_ICON_TYPE_SYNDI_CATBORG
 #undef CYBORG_ICON_TYPE_NINJA_CATBORG
 
+//Haydeez borgs are nuts
+#undef CYBORG_ICON_MED_HAYDEE_BUBBER
+#undef CYBORG_ICON_ENG_HAYDEE_BUBBER
+#undef CYBORG_ICON_SERVICE_HAYDEE_BUBBER
+#undef CYBORG_ICON_SERVICE_BUNDEE_BUBBER
+#undef CYBORG_ICON_PEACEKEEPER_HAYDEE_BUBBER
+#undef CYBORG_ICON_MINING_HAYDEE_BUBBER
+#undef CYBORG_ICON_JANI_HAYDEE_BUBBER
+#undef CYBORG_ICON_SYNDIE_HAYDEE_BUBBER
+
+//Hat Offsets
 #undef TALL_HAT_OFFSET
 #undef ZOOMBA_HAT_OFFSET
 #undef DROID_HAT_OFFSET
