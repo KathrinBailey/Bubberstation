@@ -12,7 +12,6 @@
 		TRAIT_STABLEHEART,
 		TRAIT_LIMBATTACHMENT,
 		TRAIT_NO_HUSK,
-		TRAIT_OXYIMMUNE,
 		TRAIT_LITERATE,
 		TRAIT_NOCRITDAMAGE, // We do our own handling of crit damage.
 		TRAIT_ROBOTIC_DNA_ORGANS,
@@ -140,7 +139,7 @@
 			continue
 
 		if(chassis_of_choice.color_src && chassis[MUTANT_INDEX_COLOR_LIST] && length(chassis[MUTANT_INDEX_COLOR_LIST]))
-			limb.add_color_override(head[MUTANT_INDEX_COLOR_LIST][1], LIMB_COLOR_SYNTH)
+			limb.add_color_override(chassis[MUTANT_INDEX_COLOR_LIST][1], LIMB_COLOR_SYNTH)
 		limb.change_appearance(chassis_of_choice.icon, chassis_of_choice.icon_state, !!chassis_of_choice.color_src, limb.body_part == CHEST && chassis_of_choice.dimorphic)
 		limb.name = "\improper[chassis_of_choice.name] [parse_zone(limb.body_zone)]"
 

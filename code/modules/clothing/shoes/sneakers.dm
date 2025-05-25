@@ -9,7 +9,7 @@
 	greyscale_config_worn = /datum/greyscale_config/sneakers/worn
 	greyscale_config_inhand_left = /datum/greyscale_config/sneakers/inhand_left
 	greyscale_config_inhand_right = /datum/greyscale_config/sneakers/inhand_right
-	supports_variations_flags = CLOTHING_DIGITIGRADE_MASK
+	// supports_variations_flags = CLOTHING_DIGITIGRADE_MASK // BUBBER EDIT - We have sprites for this
 	flags_1 = IS_PLAYER_COLORABLE_1
 	greyscale_config_worn_digi = /datum/greyscale_config/sneakers/worn/digi //SKYRAT EDIT ADDITION - DigiGreyscale
 	interaction_flags_mouse_drop = NEED_HANDS
@@ -143,13 +143,13 @@
 		return
 	return ..()
 
-/obj/item/clothing/shoes/sneakers/orange/pre_attack(atom/movable/attacking_movable, mob/living/user, params)
+/obj/item/clothing/shoes/sneakers/orange/pre_attack(atom/movable/attacking_movable, mob/living/user, list/modifiers, list/attack_modifiers)
 	if(attached_cuffs || attacking_movable.type != /obj/item/restraints/handcuffs)
 		return ..()
 	attacking_movable.forceMove(src)
 	return TRUE
 
-/obj/item/clothing/shoes/sneakers/orange/attackby(obj/item/attacking_item, mob/user, params)
+/obj/item/clothing/shoes/sneakers/orange/attackby(obj/item/attacking_item, mob/user, list/modifiers, list/attack_modifiers)
 	if(attached_cuffs || attacking_item.type != /obj/item/restraints/handcuffs) 	// Note: not using istype here because we want to ignore all subtypes
 		return ..()
 	attacking_item.forceMove(src)
@@ -182,7 +182,7 @@
 	greyscale_config_worn = /datum/greyscale_config/sneakers_marisa/worn
 	strip_delay = 5
 	equip_delay_other = 50
-	can_be_tied = FALSE
+	fastening_type = SHOES_SLIPON
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/shoes/sneakers/cyborg

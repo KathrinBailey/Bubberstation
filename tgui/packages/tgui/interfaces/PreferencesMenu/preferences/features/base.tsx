@@ -253,11 +253,10 @@ export function FeatureShortTextInput(
   return (
     <Input
       disabled={!serverData}
-      width="100%"
+      fluid
       value={value}
       maxLength={serverData?.maximum_length}
-      updateOnPropsChange
-      onChange={(_, value) => handleSetValue(value)}
+      onBlur={handleSetValue}
     />
   );
 }
@@ -273,25 +272,22 @@ export const FeatureTextInput = (
   return (
     <TextArea
       height="156px"
+      fluid
       value={props.value}
       maxLength={props.serverData.maximum_length}
-      onChange={(_, value) => props.handleSetValue(value)}
-      scrollbar
+      onBlur={props.handleSetValue}
     />
   );
 };
 
-export const FeatureTriColorInput = (
-  props: FeatureValueProps<string[]> & {
-    act: (action: string, value?: unknown) => void;
-  },
-) => {
+export const FeatureTriColorInput = (props: FeatureValueProps<string[]>) => {
+  const { act } = useBackend();
   const buttonFromValue = (index) => {
     return (
       <Stack.Item>
         <Button
           onClick={() => {
-            props.act('set_tricolor_preference', {
+            act('set_tricolor_preference', {
               preference: props.featureId,
               value: index + 1,
             });
