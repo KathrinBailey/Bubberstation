@@ -29,6 +29,7 @@
 	quirks_enabled = TRUE
 	random_appearance = FALSE
 	loadout_enabled = TRUE
+	allow_custom_character = ALL
 
 /datum/outfit/black_market
 	name = "Black Market Trader"
@@ -138,17 +139,17 @@
 	mob_type = /mob/living/carbon/human/species/lizard/ashwalker;
 	outfit = /datum/outfit/consumed_ashwalker
 
-/obj/effect/mob_spawn/ghost_role/human/oldsec
+/obj/effect/mob_spawn/ghost_role/human/oldstation/sec
 	loadout_enabled = TRUE
 	quirks_enabled = TRUE
 	random_appearance = FALSE
 
-/obj/effect/mob_spawn/ghost_role/human/oldsci
+/obj/effect/mob_spawn/ghost_role/human/oldstation/sci
 	loadout_enabled = TRUE
 	quirks_enabled = TRUE
 	random_appearance = FALSE
 
-/obj/effect/mob_spawn/ghost_role/human/oldeng
+/obj/effect/mob_spawn/ghost_role/human/oldstation/eng
 	loadout_enabled = TRUE
 	quirks_enabled = TRUE
 	random_appearance = FALSE
@@ -268,9 +269,9 @@
 	id_trim = /datum/id_trim/syndicom/skyrat/ds2/brigofficer
 	gloves = /obj/item/clothing/gloves/tackler/combat/insulated
 	suit = /obj/item/clothing/suit/armor/bulletproof/old
-	back = /obj/item/storage/backpack/security/redsec
+	back = /obj/item/storage/backpack/security
 	head = /obj/item/clothing/head/helmet/swat/ds
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/redsec
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	r_pocket = /obj/item/flashlight/seclite
 	mask = /obj/item/clothing/mask/gas/syndicate
 	ears = /obj/item/radio/headset/syndicateciv/staff
@@ -300,14 +301,14 @@
 	id_trim = /datum/id_trim/syndicom/skyrat/ds2/masteratarms
 	gloves = /obj/item/clothing/gloves/tackler/combat/insulated
 	suit = /obj/item/clothing/suit/armor/vest/warden/syndicate
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/redsec
-	back = /obj/item/storage/backpack/satchel/sec/redsec
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	back = /obj/item/storage/backpack/satchel/sec
 	head = /obj/item/clothing/head/hats/hos/beret/syndicate
 	l_pocket = /obj/item/gun/energy/e_gun/mini
 	r_pocket = /obj/item/flashlight/seclite
 	implants = list(
 		/obj/item/implant/weapons_auth,
-		/obj/item/implant/krav_maga
+		/obj/item/implant/kaza_ruk
 		)
 
 /datum/outfit/ds2/syndicate_command/corporateliaison
@@ -324,7 +325,10 @@
 	uniform = /obj/item/clothing/under/rank/captain/skyrat/utility/syndicate
 	suit = /obj/item/clothing/suit/armor/vest/capcarapace/syndicate
 	back = /obj/item/storage/backpack/satchel
-	belt = /obj/item/storage/belt/sabre
+	backpack_contents = list(
+		/obj/item/storage/lockbox/medal/bubber/synd = 1,
+		)
+	belt = /obj/item/storage/belt/sheath/sabre
 	head = /obj/item/clothing/head/hats/hos/cap/syndicate
 	id = /obj/item/card/id/advanced/gold/generic
 	id_trim = /datum/id_trim/syndicom/skyrat/ds2/stationadmiral

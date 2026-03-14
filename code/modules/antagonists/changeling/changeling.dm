@@ -5,8 +5,8 @@
 	name = "\improper Changeling"
 	roundend_category = "changelings"
 	antagpanel_category = "Changeling"
-	job_rank = ROLE_CHANGELING
-	antag_moodlet = /datum/mood_event/focused
+	pref_flag = ROLE_CHANGELING
+	antag_moodlet = /datum/mood_event/ling
 	antag_hud_name = "changeling"
 	hijack_speed = 0.5
 	ui_name = "AntagInfoChangeling"
@@ -167,6 +167,7 @@
 	RegisterSignal(living_mob, COMSIG_MOB_GET_STATUS_TAB_ITEMS, PROC_REF(get_status_tab_item))
 	RegisterSignals(living_mob, list(COMSIG_MOB_MIDDLECLICKON, COMSIG_MOB_ALTCLICKON), PROC_REF(on_click_sting))
 	ADD_TRAIT(living_mob, TRAIT_FAKE_SOULLESS, CHANGELING_TRAIT)
+	ADD_TRAIT(living_mob, TRAIT_BRAINLESS_CARBON, CHANGELING_TRAIT)
 
 	if(living_mob.hud_used)
 		var/datum/hud/hud_used = living_mob.hud_used
@@ -226,6 +227,7 @@
 	handle_clown_mutation(living_mob, removing = FALSE)
 	UnregisterSignal(living_mob, list(COMSIG_MOB_LOGIN, COMSIG_LIVING_LIFE, COMSIG_LIVING_POST_FULLY_HEAL, COMSIG_MOB_GET_STATUS_TAB_ITEMS, COMSIG_MOB_MIDDLECLICKON, COMSIG_MOB_ALTCLICKON))
 	REMOVE_TRAIT(living_mob, TRAIT_FAKE_SOULLESS, CHANGELING_TRAIT)
+	REMOVE_TRAIT(living_mob, TRAIT_BRAINLESS_CARBON, CHANGELING_TRAIT)
 
 	if(living_mob.hud_used)
 		var/datum/hud/hud_used = living_mob.hud_used
@@ -573,6 +575,10 @@
 	new_profile.undershirt_color = target.undershirt_color
 	new_profile.socks_color = target.socks_color
 	new_profile.bra_color = target.bra_color
+	new_profile.blooper = target.blooper
+	new_profile.blooper_speed = target.blooper_speed
+	new_profile.blooper_pitch = target.blooper_pitch
+	new_profile.blooper_pitch_range = target.blooper_pitch_range
 	new_profile.eye_color_left = target.eye_color_left
 	new_profile.eye_color_right = target.eye_color_right
 	new_profile.emissive_eyes = target.emissive_eyes
@@ -582,12 +588,6 @@
 	new_profile.target_size = target.mob_size
 	//SKYRAT EDIT ADDITION END
 	// Hair and facial hair gradients, alongside their colours.
-	//THE BUBBER EDIT ADDITION BEGIN - Voice Bark
-	new_profile.blooper_id = target.blooper_id
-	new_profile.blooper_pitch = target.blooper_pitch
-	new_profile.blooper_speed = target.blooper_speed
-	new_profile.blooper_pitch_range = target.blooper_pitch_range
-	//THE BUBBER EDIT END
 	// Grab skillchips they have
 	new_profile.skillchips = target.clone_skillchip_list(TRUE)
 
@@ -827,6 +827,10 @@
 	user.undershirt_color = chosen_profile.undershirt_color
 	user.socks_color = chosen_profile.socks_color
 	user.bra_color = chosen_profile.bra_color
+	user.blooper = chosen_profile.blooper
+	user.blooper_speed = chosen_profile.blooper_speed
+	user.blooper_pitch = chosen_profile.blooper_pitch
+	user.blooper_pitch_range = chosen_profile.blooper_pitch_range
 	user.emissive_eyes = chosen_profile.emissive_eyes
 	user.dna.mutant_bodyparts = chosen_dna.mutant_bodyparts.Copy()
 	user.dna.body_markings = chosen_dna.body_markings.Copy()
@@ -858,7 +862,7 @@
 	for(var/obj/item/bodypart/limb as anything in user.bodyparts)
 		limb.update_limb(is_creating = TRUE)
 
-	user.updateappearance(mutcolor_update = TRUE, eyeorgancolor_update = TRUE) // SKYRAT EDIT
+	user.updateappearance(mutcolor_update = TRUE)
 	user.domutcheck()
 
 	// Get rid of any scars from previous Changeling-ing
@@ -960,7 +964,7 @@
 	user.visual_only_organs = TRUE
 	chosen_dna.copy_dna(user.dna, COPY_DNA_SE|COPY_DNA_SPECIES)
 	user.visual_only_organs = initial(user.visual_only_organs)
-	user.updateappearance(mutcolor_update = TRUE, eyeorgancolor_update = TRUE)
+	user.updateappearance(mutcolor_update = TRUE)
 	user.regenerate_icons()
 	user.name = user.get_visible_name()
 	current_profile = chosen_profile
@@ -968,13 +972,6 @@
 	//this has to be at the end of the proc or it breaks everything below it, womp womp
 	user.set_mob_height(chosen_profile.target_body_scaling)
 	// SKYRAT EDIT END
-//THE BUBBER EDIT ADDITION BEGIN - Voice Bark
-	user.blooper = null
-	user.blooper_id = chosen_profile.blooper_id
-	user.blooper_pitch = chosen_profile.blooper_pitch
-	user.blooper_speed = chosen_profile.blooper_speed
-	user.blooper_pitch_range = chosen_profile.blooper_pitch_range
-	//THE BUBBER EDIT END
 // Changeling profile themselves. Store a data to store what every DNA instance looked like.
 /datum/changeling_profile
 	/// The name of the profile / the name of whoever this profile source.
@@ -1073,6 +1070,10 @@
 	new_profile.socks_color = socks_color
 	new_profile.bra = bra
 	new_profile.bra_color = bra_color
+	new_profile.blooper = blooper
+	new_profile.blooper_speed = blooper_speed
+	new_profile.blooper_pitch = blooper_pitch
+	new_profile.blooper_pitch_range = blooper_pitch_range
 	new_profile.eye_color_left = eye_color_left
 	new_profile.eye_color_right = eye_color_right
 	new_profile.emissive_eyes = emissive_eyes
@@ -1157,7 +1158,7 @@
 	name = "\improper Headslug Changeling"
 	show_in_antagpanel = FALSE
 	give_objectives = FALSE
-	count_against_dynamic_roll_chance = FALSE
+	antag_flags = ANTAG_SKIP_GLOBAL_LIST
 
 	genetic_points = 5
 	total_genetic_points = 5

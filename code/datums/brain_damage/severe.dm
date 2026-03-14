@@ -29,13 +29,13 @@
 	lose_text = span_notice("You suddenly remember how languages work.")
 
 /datum/brain_trauma/severe/aphasia/on_gain()
-	owner.add_blocked_language(subtypesof(/datum/language) - /datum/language/aphasia, LANGUAGE_APHASIA)
+	owner.add_blocked_language(subtypesof(/datum/language) - /datum/language/aphasia, source = LANGUAGE_APHASIA)
 	owner.grant_language(/datum/language/aphasia, source = LANGUAGE_APHASIA)
 	. = ..()
 
 /datum/brain_trauma/severe/aphasia/on_lose()
 	if(!QDELING(owner))
-		owner.remove_blocked_language(subtypesof(/datum/language), LANGUAGE_APHASIA)
+		owner.remove_blocked_language(subtypesof(/datum/language), source = LANGUAGE_APHASIA)
 		owner.remove_language(/datum/language/aphasia, source = LANGUAGE_APHASIA)
 
 	..()
@@ -164,14 +164,15 @@
 
 	var/drowsy = !!owner.has_status_effect(/datum/status_effect/drowsiness)
 	var/caffeinated = HAS_TRAIT(owner, TRAIT_STIMULATED)
+	var/final_sleep_chance = sleep_chance
 	if(owner.move_intent == MOVE_INTENT_RUN)
-		sleep_chance += sleep_chance_running
+		final_sleep_chance += sleep_chance_running
 	if(drowsy)
-		sleep_chance += sleep_chance_drowsy //stack drowsy ontop of base or running odds with the += operator
+		final_sleep_chance += sleep_chance_drowsy //stack drowsy ontop of base or running odds with the += operator
 	if(caffeinated)
-		sleep_chance = sleep_chance / 2 //make it harder to fall asleep on caffeine
+		final_sleep_chance *= 0.5 //make it harder to fall asleep on caffeine
 
-	if (!SPT_PROB(sleep_chance, seconds_per_tick))
+	if(!SPT_PROB(final_sleep_chance, seconds_per_tick))
 		return
 
 	//if not drowsy, don't fall asleep but make them drowsy
@@ -355,7 +356,7 @@
 		stealables += potential_stealable
 
 	for(var/obj/item/stealable as anything in shuffle(stealables))
-		if(!owner.CanReach(stealable, view_only = TRUE) || stealable.IsObscured())
+		if(!stealable.IsReachableBy(owner) || stealable.IsObscured())
 			continue
 		// Try to do a raw click on the item with one of our empty hands, to pick it up (duh)
 		owner.log_message("attempted to pick up (kleptomania)", LOG_ATTACK, color = "orange")

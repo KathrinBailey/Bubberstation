@@ -1,7 +1,4 @@
-/datum/loadout_item/suit/secjacket
-	name = "High-Vis Security Jacket"
-	item_path = /obj/item/clothing/suit/armor/vest/secjacket/blue
-	restricted_roles = list(ALL_JOBS_SEC)
+//Title Capitalization for names please!!!
 
 /datum/loadout_item/suit/leather_apron
 	name = "Leather Apron"
@@ -16,7 +13,7 @@
 	item_path = /obj/item/clothing/suit/misc/suit_harness
 
 /datum/loadout_item/suit/samurai_armor
-	name = "Samurai armor"
+	name = "Samurai Costume"
 	item_path = /obj/item/clothing/suit/costume/samurai
 
 /datum/loadout_item/suit/bunny_tailcoat
@@ -24,69 +21,86 @@
 	item_path = /obj/item/clothing/suit/jacket/tailcoat
 
 /datum/loadout_item/suit/pirate_coat
-	name = "Pirate coat"
+	name = "Pirate Coat"
 	item_path = /obj/item/clothing/suit/costume/pirate
 
-/datum/loadout_item/suit/hooded/wintercoat/security
-	name = "Security winter jacket"
-	item_path = /obj/item/clothing/suit/hooded/wintercoat/security
+// OFFICER
+
+/datum/loadout_item/suit/armor/vest/sec/viro
+	name = "Security Plate Carrier"
+	item_path = /obj/item/clothing/suit/armor/vest/alt/sec/viro
 	restricted_roles = list(ALL_JOBS_SEC)
 
-/datum/loadout_item/suit/hooded/wintercoat/security/redsec
-	name = "Security winter jacket (Redsec)"
-	item_path = /obj/item/clothing/suit/hooded/wintercoat/security/redsec
+/datum/loadout_item/suit/armor/vest/sec/viro/heavy
+	name = "Security Heavy Vest"
+	item_path = /obj/item/clothing/suit/armor/vest/alt/sec/viro/heavyvest
 	restricted_roles = list(ALL_JOBS_SEC)
 
-/datum/loadout_item/suit/toggle/jacket/sec/old
-	name = "Security jacket (Redsec)"
-	item_path = /obj/item/clothing/suit/toggle/jacket/sec/old
+/datum/loadout_item/suit/armor/vest/sec/viro/leatherjacket
+	name = "Security Leather Jacket"
+	item_path = /obj/item/clothing/suit/armor/vest/alt/sec/viro/leatherjacket
 	restricted_roles = list(ALL_JOBS_SEC)
 
-/datum/loadout_item/suit/jacket/officer/tan
-	name = "Formal security jacket (tan)"
-	item_path = /obj/item/clothing/suit/jacket/officer/tan
+/datum/loadout_item/suit/armor/vest/sec/viro/softshell
+	name = "Security Softshell"
+	item_path = /obj/item/clothing/suit/armor/vest/alt/sec/viro/softshell
 	restricted_roles = list(ALL_JOBS_SEC)
 
-/datum/loadout_item/suit/armor/vest/secjacket
-	name = "Security jacket"
-	item_path = /obj/item/clothing/suit/armor/vest/secjacket
-	restricted_roles = list(ALL_JOBS_SEC)
+// WARDEN
 
-/datum/loadout_item/suit/armor/vest/peacekeeper/armadyne
-	name = "Armadyne Jacket"
-	item_path = /obj/item/clothing/suit/armor/vest/peacekeeper/armadyne
-	restricted_roles = list(ALL_JOBS_SEC)
+/datum/loadout_item/suit/armor/vest/warden
+	name = "Warden's Jacket"
+	item_path = /obj/item/clothing/suit/armor/vest/warden
+	restricted_roles = list(JOB_WARDEN)
 
-/datum/loadout_item/suit/armor/vest/peacekeeper/armadyne/armor
-	name = "Armadyne Armor Vest"
-	item_path = /obj/item/clothing/suit/armor/vest/peacekeeper/armadyne/armor
-	restricted_roles = list(ALL_JOBS_SEC)
+/datum/loadout_item/suit/armor/vest/warden/alt
+	name = "Warden's Armoured Jacket"
+	item_path = /obj/item/clothing/suit/armor/vest/warden/alt
+	restricted_roles = list(JOB_WARDEN)
 
-/datum/loadout_item/suit/armor/vest/nri_police
-	name = "Imperial police vest"
-	item_path = /obj/item/clothing/suit/armor/vest/nri_police
-	restricted_roles = list(ALL_JOBS_SEC, JOB_CUSTOMS_AGENT)
+/datum/loadout_item/suit/armor/vest/warden/alt/winter
+	name = "Warden's Winter Jacket"
+	item_path = /obj/item/clothing/suit/armor/vest/warden/alt/winter
+	restricted_roles = list(JOB_WARDEN)
 
-/datum/loadout_item/suit/jacket/fedsec
-	name = "Modern Security federation jacket"
-	item_path = /obj/item/clothing/suit/fedcoat/modern/sec
-	restricted_roles = list(ALL_JOBS_SEC)
+// HEAD OF SECURITY
 
-/datum/loadout_item/suit/jacket/corrections_officer
-	name = "Correction's officer's jacket"
-	item_path = /obj/item/clothing/suit/toggle/jacket/corrections_officer
-	restricted_roles = list(JOB_CORRECTIONS_OFFICER, JOB_WARDEN)
+/datum/loadout_item/suit/armor/hos
+	name = "Head of Security's Leather Greatcoat"
+	item_path = /obj/item/clothing/suit/armor/hos
+	restricted_roles = list(JOB_HEAD_OF_SECURITY)
+
+/datum/loadout_item/suit/armor/hos/trenchcoat
+	name = "Head of Security's Leather Trenchcoat"
+	item_path = /obj/item/clothing/suit/armor/hos/trenchcoat
+	restricted_roles = list(JOB_HEAD_OF_SECURITY)
+
+/datum/loadout_item/suit/armor/hos/overcoat
+	name = "Head of Security's Overcoat"
+	item_path = /obj/item/clothing/suit/armor/hos/overcoat
+	restricted_roles = list(JOB_HEAD_OF_SECURITY)
+
+/datum/loadout_item/suit/armor/hos/trenchcoat/winter
+	name = "Head of Security's Winter Trenchcoat"
+	item_path = /obj/item/clothing/suit/armor/hos/trenchcoat/winter
+	restricted_roles = list(JOB_HEAD_OF_SECURITY)
+
+/datum/loadout_item/suit/armor/hos/vest
+	name = "Head of Security's Plate Carrier"
+	item_path = /obj/item/clothing/suit/armor/hos/vest
+	restricted_roles = list(JOB_HEAD_OF_SECURITY)
+
+//
 
 /datum/loadout_item/suit/jacket/security_medic
-	name = "Security medic labcoat"
+	name = "Security Medic Labcoat"
 	item_path = /obj/item/clothing/suit/toggle/labcoat/skyrat/security_medic
 	restricted_roles = list(JOB_SECURITY_MEDIC)
 
-/datum/loadout_item/suit/jacket/security_medic
-	name = "Security medic labcoat (Blue)"
-	item_path = /obj/item/clothing/suit/toggle/labcoat/skyrat/security_medic/blue
-	restricted_roles = list(JOB_SECURITY_MEDIC)
-
+// Silver Jacket Mk2 but for all of Command
+/datum/loadout_item/suit/lt3_armor/New()
+	restricted_roles += list(JOB_HEAD_OF_SECURITY, JOB_BLUESHIELD, JOB_RESEARCH_DIRECTOR, JOB_CHIEF_ENGINEER, JOB_CAPTAIN, JOB_QUARTERMASTER, JOB_CHIEF_MEDICAL_OFFICER)
+	return ..()
 
 // Fancy crop-top jackets
 
@@ -151,3 +165,81 @@
 /datum/loadout_item/suit/galfed_jacket
 	name = "Galactic Federation Jacket"
 	item_path = /obj/item/clothing/suit/jacket/galfed
+
+/datum/loadout_item/suit/frontier_colonist
+	name = "Frontier Trenchcoat"
+	item_path = /obj/item/clothing/suit/jacket/frontier_colonist/loadout
+
+/datum/loadout_item/suit/frontier_colonist_short
+	name = "Frontier Jacket"
+	item_path = /obj/item/clothing/suit/jacket/frontier_colonist/short/loadout
+
+//Doppler hoodies.
+
+/datum/loadout_item/suit/hoodie/big_hoodie
+	name = "Big Hoodie"
+	item_path = /obj/item/clothing/suit/hooded/big_hoodie
+
+/datum/loadout_item/suit/hoodie/twee_hoodie
+	name = "Disconcertingly Twee Hoodie"
+	item_path = /obj/item/clothing/suit/hooded/twee_hoodie
+
+//Para Bombers
+//Unless it has armor, real armor and not just like minor acid/fire I'm just gonna leave it unrestricted because the people want their drip. Me. I'm the people.
+/datum/loadout_item/suit/parabomber
+	name = "Three Piece Bomber Jacket"
+	item_path = /obj/item/clothing/suit/toggle/jacket/zubber/bomber
+
+/datum/loadout_item/suit/paraatmosbomber
+	name = "Atmos Bomber Jacket"
+	item_path = /obj/item/clothing/suit/utility/fire/atmosbomber
+	restricted_roles = list(ALL_JOBS_ENGINEERING)
+
+/datum/loadout_item/suit/paraengibomber
+	name = "Engineering Bomber Jacket"
+	item_path = /obj/item/clothing/suit/toggle/jacket/zubber/bomber/engi
+
+/datum/loadout_item/suit/paracargobomber
+	name = "Cargo Bomber Jacket"
+	item_path = /obj/item/clothing/suit/toggle/jacket/zubber/bomber/cargo
+
+/datum/loadout_item/suit/parathesmithsbomber
+	name = "Blacksmith Bomber Jacket"
+	item_path = /obj/item/clothing/suit/toggle/jacket/zubber/bomber/cargo/smith
+
+/datum/loadout_item/suit/paraminingbomber
+	name = "Mining Bomber Jacket"
+	item_path = /obj/item/clothing/suit/toggle/jacket/zubber/bomber/mining
+	restricted_roles = list(JOB_SHAFT_MINER)
+
+/datum/loadout_item/suit/parascibomber
+	name = "Scientist Bomber Jacket"
+	item_path = /obj/item/clothing/suit/toggle/jacket/zubber/bomber/science
+
+/datum/loadout_item/suit/pararobobomber
+	name = "Robotics Bomber Jacket"
+	item_path = /obj/item/clothing/suit/toggle/jacket/zubber/bomber/science/robotics
+
+/datum/loadout_item/suit/paramedbomber
+	name = "Medical Bomber Jacket"
+	item_path = /obj/item/clothing/suit/toggle/jacket/zubber/bomber/science/med
+
+/datum/loadout_item/suit/parachembomber
+	name = "Chemical Bomber Jacket"
+	item_path = /obj/item/clothing/suit/toggle/jacket/zubber/bomber/science/chem
+
+/datum/loadout_item/suit/paracorobomber
+	name = "Black Bomber Jacket"
+	item_path = /obj/item/clothing/suit/toggle/jacket/zubber/bomber/science/coroner
+
+/datum/loadout_item/suit/parabotbomber
+	name = "Botanical Bomber Jacket"
+	item_path = /obj/item/clothing/suit/toggle/jacket/zubber/bomber/hydro
+
+/datum/loadout_item/suit/paraimposterbomber
+	name = "Suspicious Bomber Jacket"
+	item_path = /obj/item/clothing/suit/toggle/jacket/zubber/bomber/syndicate/fake
+
+/datum/loadout_item/suit/trenchcoat
+	name = "Trenchcoat"
+	item_path = /obj/item/clothing/suit/toggle/jacket/trenchcoat

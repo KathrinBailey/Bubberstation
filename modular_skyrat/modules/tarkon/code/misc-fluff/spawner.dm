@@ -15,6 +15,7 @@
 	quirks_enabled = TRUE
 	random_appearance = FALSE
 	computer_area = /area/ruin/space/has_grav/port_tarkon/centerhall
+	allow_custom_character = ALL
 
 /datum/outfit/tarkon
 	name = "default port tarkon outfit"
@@ -102,7 +103,7 @@
 	skillchips = list(/obj/item/skillchip/job/miner)
 
 /obj/effect/mob_spawn/ghost_role/human/tarkon/sci
-	name = "Port Tarkon Reserach Crew Member"
+	name = "Port Tarkon Research Crew Member"
 	prompt_name = "a port researcher"
 	outfit = /datum/outfit/tarkon/sci
 
@@ -192,7 +193,7 @@
 /datum/outfit/tarkon/sec
 	name = "Port Tarkon Security Outfit"
 	uniform = /obj/item/clothing/under/tarkon/sec
-	glasses = /obj/item/clothing/glasses/hud/security/redsec
+	glasses = /obj/item/clothing/glasses/hud/security
 	gloves = /obj/item/clothing/gloves/tackler/combat
 	neck = /obj/item/clothing/neck/security_cape/tarkon
 	id = /obj/item/card/id/advanced/tarkon/sec
@@ -333,7 +334,7 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/computer/cryopod/tarkon, 32)
 	visible_message(span_boldannounce("The nest rumbles violently as the entrance begins to crack and break apart!"))
 	playsound(loc,'sound/effects/tendril_destroyed.ogg', 200, FALSE, 50, TRUE, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(rustle)), 5 SECONDS)
-	do_jiggle()
+	do_jiggle_sr()
 
 /obj/structure/spawner/tarkon_xenos/common
 	name = "infested nest"

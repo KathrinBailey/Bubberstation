@@ -13,10 +13,10 @@
 	var/where_accessory //! where the accessory spawned
 	var/obj/item/accessory_type //! If this is null, an accessory won't be spawned.
 	var/drug_flavour_text = "Better hope you don't run out... of what, exactly? You don't know."
-	var/process_interval = 30 SECONDS //! how frequently the quirk processes
+	var/process_interval = 90 SECONDS //! how frequently the quirk processes - BUBBER EDIT: Originally 30 Seconds.
 	COOLDOWN_DECLARE(next_process) //! ticker for processing
 
-/datum/quirk/item_quirk/addict/add_unique(client/client_source)
+/datum/quirk/item_quirk/addict/add(client/client_source)
 	var/mob/living/carbon/human/human_holder = quirk_holder
 
 	if(!reagent_type)
@@ -27,6 +27,7 @@
 	for(var/addiction in reagent_instance.addiction_types)
 		human_holder.last_mind?.add_addiction_points(addiction, 1000)
 
+/datum/quirk/item_quirk/addict/add_unique(client/client_source)
 	var/current_turf = get_turf(quirk_holder)
 
 	if(!drug_container_type)

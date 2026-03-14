@@ -3,7 +3,7 @@
 
 /obj/item/stack/medical/wound_recovery
 	name = "subdermal splint applicator"
-	desc = "A roll flexible material dotted with millions of micro-scale injectors on one side. \
+	desc = "A roll of flexible material dotted with millions of micro-scale injectors on one side. \
 		On application to a body part with a damaged bone structure, nanomachines stored within those \
 		injectors will surround the wound and form a subdermal, self healing splint. While convenient \
 		for keeping appearances and rapid healing, the nanomachines tend to leave their host particularly \
@@ -95,7 +95,7 @@
 		to_chat(patient, span_userdanger("Your [limb.plaintext_zone] burns like hell as the wounds on it are rapidly healed, fuck!"))
 		patient.add_mood_event("severe_surgery", /datum/mood_event/rapid_wound_healing)
 	limb.receive_damage(brute = INSTANT_WOUND_HEAL_LIMB_DAMAGE, wound_bonus = CANT_WOUND)
-	patient.adjustStaminaLoss(INSTANT_WOUND_HEAL_STAMINA_DAMAGE)
+	patient.adjust_stamina_loss(INSTANT_WOUND_HEAL_STAMINA_DAMAGE)
 	patient.apply_status_effect(/datum/status_effect/vulnerable_to_damage)
 	use(1)
 

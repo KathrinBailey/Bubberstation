@@ -103,18 +103,13 @@ GLOBAL_LIST_INIT(holiday_mail, list())
 		if(PATTERN_RAINBOW)
 			var/datum/holiday/pride_week/rainbow_datum = new()
 			return rainbow_datum.get_holiday_colors(thing_to_color, PATTERN_DEFAULT)
-	//if(!length(GLOB.holidays)) // BUBBER EDIT REMOVAL - Pride Flag Colors
-	//	return // BUBBER EDIT REMOVAL - Pride Flag Colors
+	if(!length(GLOB.holidays))
+		return
 	for(var/holiday_key in GLOB.holidays)
 		var/datum/holiday/holiday_real = GLOB.holidays[holiday_key]
 		if(!holiday_real.holiday_colors)
 			continue
 		return holiday_real.get_holiday_colors(thing_to_color, pattern || holiday_real.holiday_pattern)
-	// BUBBER EDIT ADDITION BEGIN - Pride Flag Colors
-	if(prob(20))
-		var/datum/holiday/pride_week/rainbow_datum = new()
-		return rainbow_datum.get_holiday_colors(thing_to_color, pattern)
-	// BUBBER EDIT ADDITION END - Pride Flag Colors
 
 // The actual holidays
 
@@ -881,6 +876,27 @@ GLOBAL_LIST_INIT(holiday_mail, list())
 /datum/holiday/xmas/greet()
 	return "Have a merry Christmas!"
 
+/datum/holiday/xmas/celebrate()
+	. = ..()
+	SSticker.OnRoundstart(CALLBACK(src, PROC_REF(roundstart_celebrate)))
+	GLOB.maintenance_loot += list(
+		list(
+			/obj/item/clothing/head/costume/santa = 1,
+			/obj/item/gift/mostly_anything = 1, // BUBBER EDIT - Previous: /obj/item/gift/anything
+			/obj/item/toy/xmas_cracker = 3,
+		) = maint_holiday_weight,
+	)
+
+/datum/holiday/xmas/proc/roundstart_celebrate()
+	for(var/obj/machinery/computer/security/telescreen/entertainment/Monitor as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/security/telescreen/entertainment))
+		Monitor.icon_state_on = "entertainment_xmas"
+
+	for(var/mob/living/basic/pet/dog/corgi/ian/Ian in GLOB.mob_living_list)
+		Ian.place_on_head(new /obj/item/clothing/head/helmet/space/santahat(Ian))
+
+	var/datum/supply_pack/pack = SSshuttle.supply_packs[/datum/supply_pack/costumes_toys/christmas]
+	pack.order_flags |= ORDER_SPECIAL_ENABLED
+
 /datum/holiday/boxing
 	name = "Boxing Day"
 	begin_day = 26
@@ -988,27 +1004,6 @@ GLOBAL_LIST_INIT(holiday_mail, list())
 
 /datum/holiday/hebrew/passover/getStationPrefix()
 	return pick("Matzah", "Moses", "Red Sea")
-
-// HOLIDAY ADDONS
-
-/datum/holiday/xmas/celebrate()
-	. = ..()
-	SSticker.OnRoundstart(CALLBACK(src, PROC_REF(roundstart_celebrate)))
-	GLOB.maintenance_loot += list(
-		list(
-			/obj/item/clothing/head/costume/santa = 1,
-			/obj/item/gift/anything = 1,
-			/obj/item/toy/xmas_cracker = 3,
-		) = maint_holiday_weight,
-	)
-
-/datum/holiday/xmas/proc/roundstart_celebrate()
-	for(var/obj/machinery/computer/security/telescreen/entertainment/Monitor as anything in SSmachines.get_machines_by_type_and_subtypes(/obj/machinery/computer/security/telescreen/entertainment))
-		Monitor.icon_state_on = "entertainment_xmas"
-
-	for(var/mob/living/basic/pet/dog/corgi/ian/Ian in GLOB.mob_living_list)
-		Ian.place_on_head(new /obj/item/clothing/head/helmet/space/santahat(Ian))
-
 
 // EASTER (this having its own spot should be understandable)
 

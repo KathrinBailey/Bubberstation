@@ -9,7 +9,7 @@
 	desc = "A malevolent spirit."
 	icon = 'icons/mob/simple/mob.dmi'
 	icon_state = "revenant_idle"
-	mob_biotypes = MOB_SPIRIT
+	mob_biotypes = MOB_SPIRIT | MOB_UNDEAD
 	incorporeal_move = INCORPOREAL_MOVE_JAUNT
 	invisibility = INVISIBILITY_REVENANT
 	health = INFINITY //Revenants don't use health, they use essence instead
@@ -73,6 +73,7 @@
 		/datum/action/cooldown/spell/aoe/revenant/malfunction,
 		/datum/action/cooldown/spell/aoe/revenant/overload,
 		/datum/action/cooldown/spell/list_target/telepathy/revenant,
+		/datum/action/cooldown/spell/pointed/revenant/bloodwriting, //BUBBER ADDITION
 	)
 
 	/// The resource, and health, of revenants.
@@ -95,7 +96,7 @@
 /mob/living/basic/revenant/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/simple_flying)
-	add_traits(list(TRAIT_SPACEWALK, TRAIT_SIXTHSENSE, TRAIT_FREE_HYPERSPACE_MOVEMENT), INNATE_TRAIT)
+	add_traits(list(TRAIT_SPACEWALK, TRAIT_SIXTHSENSE, TRAIT_FREE_HYPERSPACE_MOVEMENT, TRAIT_SEE_BLESSED_TILES), INNATE_TRAIT)
 
 	grant_actions_by_list(abilities)
 
@@ -126,7 +127,6 @@
 
 	generated_objectives_and_spells = TRUE
 	mind.set_assigned_role(SSjob.get_job_type(/datum/job/revenant))
-	mind.special_role = ROLE_REVENANT
 	SEND_SOUND(src, sound('sound/effects/ghost.ogg'))
 	mind.add_antag_datum(/datum/antagonist/revenant)
 	return TRUE
@@ -203,6 +203,10 @@
 	relay_to_list_and_observers(rendered, GLOB.revenant_relay_mobs, src)
 
 /mob/living/basic/revenant/ClickOn(atom/A, params) //revenants can't interact with the world directly, so we gotta do some wacky override stuff
+	//BUBBER ADDITION START
+	if(check_click_intercept(params,A) || HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
+		return
+	//BUBBER ADDITION END
 	var/list/modifiers = params2list(params)
 	if(LAZYACCESS(modifiers, SHIFT_CLICK))
 		ShiftClickOn(A)
@@ -300,7 +304,7 @@
 /mob/living/basic/revenant/narsie_act()
 	return //most humans will now be either bones or harvesters, but we're still un-alive.
 
-/mob/living/basic/revenant/bullet_act()
+/mob/living/basic/revenant/projectile_hit(obj/projectile/hitting_projectile, def_zone, piercing_hit, blocked)
 	if(!HAS_TRAIT(src, TRAIT_REVENANT_REVEALED) || dormant)
 		return BULLET_ACT_FORCE_PIERCE
 	return ..()

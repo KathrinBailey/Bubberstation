@@ -162,33 +162,66 @@
 				returned_string = "You see a sheath."
 			if(SHEATH_SLIT)
 				returned_string = "You see a slit." ///Typo fix.
-		if(aroused == AROUSAL_PARTIAL)
-			returned_string += " There's a [pname]penis poking out of it."
+		if(aroused != AROUSAL_PARTIAL)
+			return returned_string
+		returned_string += " There's a [pname]penis poking out of it. "
 	else
-		returned_string = "You see a [pname]penis. You estimate it's [genital_size] inches long, and [girth] inches in circumference."
-		switch(aroused)
-			if(AROUSAL_NONE)
-				returned_string += " It seems flaccid."
-			if(AROUSAL_PARTIAL)
-				returned_string += " It's partically erect."
-			if(AROUSAL_FULL)
-				returned_string += " It's fully erect."
+		returned_string += "You see a [pname]penis. "
+
+	var/reported_girth = CEILING( girth / 3.1415, 0.25) //Circum to Diameter
+	var/reported_length = genital_size
+	if(aroused != AROUSAL_FULL) //Only when not full mast.
+		var/temperature_difference = owner.bodytemperature - owner.get_body_temp_normal()
+		if(temperature_difference <= 2) //2 kelvin difference (colder)
+			// https://www.desmos.com/calculator/ivauzad62s
+			//I love penis math
+			reported_length *= max(0.5, 1 - (-temperature_difference/50)**4)
+	reported_length = CEILING(reported_length,0.25)
+	returned_string += "You estimate it's about [reported_length] inches long, and about [reported_girth] inches in diameter."
+
+	switch(aroused)
+		if(AROUSAL_NONE)
+			returned_string += " It seems flaccid."
+		if(AROUSAL_PARTIAL)
+			returned_string += " It's partically erect."
+		if(AROUSAL_FULL)
+			returned_string += " It's fully erect."
+
 	return returned_string
 
 /obj/item/organ/genital/penis/update_genital_icon_state()
 	var/size_affix
 	var/measured_size = FLOOR(genital_size,1)
-	if(measured_size < 1)
-		measured_size = 1
-	switch(measured_size)
-		if(1 to 8)
-			size_affix = "1"
-		if(9 to 15)
-			size_affix = "2"
-		if(16 to 24)
-			size_affix = "3"
-		else
-			size_affix = "4"
+	if(findtext(genital_name, "(Alt)"))
+		if(measured_size < 1)
+			measured_size = 1
+		switch(measured_size)
+			if(1 to 10)
+				size_affix = "1"
+			if(11 to 20)
+				size_affix = "2"
+			if(21 to 30)
+				size_affix = "3"
+			if(31 to 40)
+				size_affix = "4"
+			if(41 to 50)
+				size_affix = "5"
+			if(51 to 61)
+				size_affix = "6"
+			else
+				size_affix = "7"
+	else
+		if(measured_size < 1)
+			measured_size = 1
+		switch(measured_size)
+			if(1 to 8)
+				size_affix = "1"
+			if(9 to 15)
+				size_affix = "2"
+			if(16 to 24)
+				size_affix = "3"
+			else
+				size_affix = "4"
 	var/passed_string = "penis_[genital_type]_[size_affix]"
 	if(uses_skintones)
 		passed_string += "_s"
@@ -206,17 +239,36 @@
 	var/is_erect = 0
 	if(aroused == AROUSAL_FULL)
 		is_erect = 1
-	if(measured_size < 1)
-		measured_size = 1
-	switch(measured_size)
-		if(1 to 8)
-			size_affix = "1"
-		if(9 to 15)
-			size_affix = "2"
-		if(16 to 24)
-			size_affix = "3"
-		else
-			size_affix = "4"
+	if(findtext(genital_name, "(Alt)"))
+		if(measured_size < 1)
+			measured_size = 1
+		switch(measured_size)
+			if(1 to 10)
+				size_affix = "1"
+			if(11 to 20)
+				size_affix = "2"
+			if(21 to 30)
+				size_affix = "3"
+			if(31 to 40)
+				size_affix = "4"
+			if(41 to 50)
+				size_affix = "5"
+			if(51 to 61)
+				size_affix = "6"
+			else
+				size_affix = "7"
+	else
+		if(measured_size < 1)
+			measured_size = 1
+		switch(measured_size)
+			if(1 to 8)
+				size_affix = "1"
+			if(9 to 15)
+				size_affix = "2"
+			if(16 to 24)
+				size_affix = "3"
+			else
+				size_affix = "4"
 	var/passed_string = "[genital_type]_[size_affix]_[is_erect]"
 	if(uses_skintones)
 		passed_string += "_s"
@@ -259,7 +311,11 @@
 	layers = EXTERNAL_ADJACENT | EXTERNAL_BEHIND
 
 /obj/item/organ/genital/testicles/update_genital_icon_state()
-	var/measured_size = clamp(genital_size, 1, TESTICLES_MAX_SIZE)
+	var/measured_size = FLOOR(genital_size,1)
+	var/max_size = TESTICLES_MAX_SIZE
+	if(genital_name != "Pair (Alt)" && genital_name != "Sheathed Pair")
+		max_size -= 2
+	measured_size = clamp(measured_size, 1, max_size)
 	var/passed_string = "testicles_[genital_type]_[measured_size]"
 	if(uses_skintones)
 		passed_string += "_s"
@@ -283,7 +339,10 @@
 
 /obj/item/organ/genital/testicles/get_sprite_size_string()
 	var/measured_size = FLOOR(genital_size,1)
-	measured_size = clamp(measured_size, 0, TESTICLES_MAX_SIZE)
+	var/max_size = TESTICLES_MAX_SIZE
+	if(genital_name != "Pair (Alt)" && genital_name != "Sheathed Pair")
+		max_size -= 2
+	measured_size = clamp(measured_size, 0, max_size)
 	var/passed_string = "[genital_type]_[measured_size]"
 	if(uses_skintones)
 		passed_string += "_s"
@@ -461,7 +520,9 @@
 /obj/item/organ/genital/breasts/get_sprite_size_string()
 	var/max_size = 5
 	if(genital_type == "pair")
-		max_size = 16
+		max_size = findtext(genital_name, "(Alt)") ? 19 : 16
+	if(genital_type == "quad")
+		max_size = findtext(genital_name, "(Alt)") ? 19 : 5
 	var/current_size = FLOOR(genital_size, 1)
 	if(current_size < 0)
 		current_size = 0
@@ -510,16 +571,16 @@
 		to_chat(usr, span_warning("You can't toggle genitals visibility right now..."))
 		return
 
-	var/list/genital_list = list()
+	var/list/genital_list = list("all")
 	for(var/obj/item/organ/genital/genital in organs)
 		if(!genital.visibility_preference == GENITAL_SKIP_VISIBILITY)
 			genital_list += genital
-	if(!genital_list.len) //There is nothing to expose
+	if(genital_list.len == 1) //There is nothing to expose
 		return
 	//Full list of exposable genitals created
 	var/obj/item/organ/genital/picked_organ
 	picked_organ = input(src, "Choose which genitalia to expose/hide", "Expose/Hide genitals") as null|anything in genital_list
-	if(picked_organ && (picked_organ in organs))
+	if(picked_organ && ((picked_organ in organs) || picked_organ == "all"))
 		var/list/gen_vis_trans = list("Never show" = GENITAL_NEVER_SHOW,
 												"Hidden by clothes" = GENITAL_HIDDEN_BY_CLOTHES,
 												"Always show" = GENITAL_ALWAYS_SHOW
@@ -528,6 +589,13 @@
 		if(picked_visibility && picked_organ && (picked_organ in organs))
 			picked_organ.visibility_preference = gen_vis_trans[picked_visibility]
 			update_body()
+			SEND_SIGNAL(src, COMSIG_HUMAN_TOGGLE_GENITALS)
+		if(picked_visibility && picked_organ == "all")
+			for(var/obj/item/organ/genital/genital in organs)
+				if(!genital.visibility_preference == GENITAL_SKIP_VISIBILITY)
+					genital.visibility_preference = gen_vis_trans[picked_visibility]
+			update_body()
+			SEND_SIGNAL(src, COMSIG_HUMAN_TOGGLE_GENITALS)
 	return
 
 //Removing ERP IC verb depending on config
@@ -546,24 +614,12 @@
 		to_chat(usr, span_warning("You can't toggle arousal right now..."))
 		return
 
-	var/list/genital_list = list()
-	for(var/obj/item/organ/genital/genital in organs)
-		if(!genital.aroused == AROUSAL_CANT)
-			genital_list += genital
-	if(!genital_list.len) //There is nothing to expose
-		return
-	//Full list of exposable genitals created
-	var/obj/item/organ/genital/picked_organ
-	picked_organ = input(src, "Choose which genitalia to change arousal", "Expose/Hide genitals") as null|anything in genital_list
-	if(picked_organ && (picked_organ in organs))
-		var/list/gen_arous_trans = list(
-			"Not aroused" = AROUSAL_NONE,
-			"Partly aroused" = AROUSAL_PARTIAL,
-			"Very aroused" = AROUSAL_FULL,
-		)
-		var/picked_arousal = input(src, "Choose arousal", "Toggle Arousal") as null|anything in gen_arous_trans
-		if(picked_arousal && picked_organ && (picked_organ in organs))
-			picked_organ.aroused = gen_arous_trans[picked_arousal]
-			picked_organ.update_sprite_suffix()
-			update_body()
+	var/arousal_target = tgui_input_number(src, "[AROUSAL_NONE]= No arousal, <[AROUSAL_LOW] Low/partial Arousal, [AROUSAL_LOW] - [AROUSAL_HIGH] Medium/full Arousal, >[AROUSAL_HIGH] Strong/full Arousal", "Set Arousal Amount", arousal, AROUSAL_LIMIT, AROUSAL_MINIMUM, 0)
+	if (!isnull(arousal_target))
+		var/datum/component/change_arousal_on_life/to_del = GetComponent(/datum/component/change_arousal_on_life/)
+		if (!isnull(to_del))
+			qdel(to_del)
+		AddComponent(/datum/component/change_arousal_on_life)
+		arousal_goal = arousal_target
+		SEND_SIGNAL(src, COMSIG_HUMAN_TOGGLE_AROUSAL)
 	return

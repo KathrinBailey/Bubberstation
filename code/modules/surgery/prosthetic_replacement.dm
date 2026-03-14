@@ -22,7 +22,7 @@
 	if(!iscarbon(target))
 		return FALSE
 	var/mob/living/carbon/carbon_target = target
-	if(!carbon_target.get_bodypart(user.zone_selected)) //can only start if limb is missing
+	if(!carbon_target.get_bodypart(user.zone_selected) && carbon_target.should_have_limb(user.zone_selected)) //can only start if limb is missing
 		return TRUE
 	return FALSE
 
@@ -134,7 +134,7 @@
 	if(bodypart_to_attach.check_for_frankenstein(target))
 		bodypart_to_attach.bodypart_flags |= BODYPART_IMPLANTED
 	if(organ_rejection_dam)
-		target.adjustToxLoss(organ_rejection_dam)
+		target.adjust_tox_loss(organ_rejection_dam)
 	display_results(
 		user, target,
 		span_notice("You succeed in replacing [target]'s [target.parse_zone_with_bodypart(target_zone)]."),
@@ -144,6 +144,7 @@
 	display_pain(target, "You feel synthetic sensation wash from your [target.parse_zone_with_bodypart(target_zone)], which you can feel again!", TRUE)
 
 /datum/surgery_step/add_prosthetic/proc/handle_arbitrary_prosthetic(mob/user, mob/living/carbon/target, obj/item/thing_to_attach, target_zone)
+	SSblackbox.record_feedback("tally", "arbitrary_prosthetic", 1, initial(thing_to_attach.name))
 	target.make_item_prosthetic(thing_to_attach, target_zone, 80)
 	display_results(
 		user, target,

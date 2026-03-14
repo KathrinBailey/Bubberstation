@@ -153,7 +153,7 @@
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		user.take_bodypart_damage(20,25,check_armor = TRUE)
 	else
-		user.adjustStaminaLoss(25)
+		user.adjust_stamina_loss(25)
 
 /obj/item/dualsaber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK, damage_type = BRUTE)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
@@ -169,6 +169,9 @@
 
 	if(attack_type == LEAP_ATTACK)
 		final_block_chance -= 50 //We are particularly bad at blocking someone JUMPING at us..
+
+	if(attack_type == OVERWHELMING_ATTACK)
+		final_block_chance = 0 //Far too small to block these kinds of attacks.
 
 	return ..()
 

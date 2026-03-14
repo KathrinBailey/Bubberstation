@@ -182,7 +182,7 @@
 	to_chat(src, span_warning("You cannot speak, your other self is controlling your body!"))
 	return FALSE
 
-/mob/living/split_personality/emote(act, m_type = null, message = null, intentional = FALSE, force_silence = FALSE)
+/mob/living/split_personality/emote(act, type_override = NONE, message = null, intentional = FALSE, force_silence = FALSE, forced = FALSE)
 	return FALSE
 
 ///////////////BRAINWASHING////////////////////
@@ -283,11 +283,15 @@
 		header = "Bro I'm not even drunk right now",
 		notify_flags = NOTIFY_CATEGORY_NOFLASH,
 	)
+	var/datum/status_effect/inebriated/inebriation = owner.has_status_effect(/datum/status_effect/inebriated)
+	inebriation?.iron_liver = TRUE
 
 /datum/brain_trauma/severe/split_personality/blackout/on_lose()
 	. = ..()
 	owner.add_mood_event("hang_over", /datum/mood_event/hang_over)
 	UnregisterSignal(owner, COMSIG_ATOM_SPLASHED)
+	var/datum/status_effect/inebriated/inebriation = owner.has_status_effect(/datum/status_effect/inebriated)
+	inebriation?.iron_liver = FALSE
 
 /datum/brain_trauma/severe/split_personality/blackout/proc/on_splashed()
 	SIGNAL_HANDLER
@@ -321,7 +325,7 @@
 	//too drunk to feel anything
 	//if they're to this point, they're likely dying of liver damage
 	//and not accounting for that, the split personality is temporary
-	owner.adjustStaminaLoss(-25)
+	owner.adjust_stamina_loss(-25)
 	duration_in_seconds -= seconds_per_tick
 
 /mob/living/split_personality/blackout

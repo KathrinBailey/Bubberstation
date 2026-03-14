@@ -36,11 +36,14 @@
 //BRAINS
 /datum/augment_item/organ/brain
 	slot = AUGMENT_SLOT_BRAIN
+	cost = 1 // while a sidegrade, there are genuine applications for having a vanilla brain
 
 /datum/augment_item/organ/brain/cortical
 	name = "Cortically-Augmented Brain"
 	slot = AUGMENT_SLOT_BRAIN
 	path = /obj/item/organ/brain/cybernetic/cortical
+	cost = 1 // technically a downgrade in most applications, but has uses.
+
 //EDIT END
 
 //HEARTS
@@ -153,3 +156,15 @@
 /datum/augment_item/organ/tongue/forked
 	name = "Forked tongue"
 	path = /obj/item/organ/tongue/lizard
+
+/datum/augment_item/organ/tongue/akula
+	name = "Aquatic tongue"
+	path = /obj/item/organ/tongue/akula
+
+//EARS
+/datum/augment_item/organ/ears
+	slot = AUGMENT_SLOT_EARS
+
+/datum/augment_item/organ/ears/cybernetic
+	name = "Cybernetic ears"
+	path = /obj/item/organ/ears/cybernetic

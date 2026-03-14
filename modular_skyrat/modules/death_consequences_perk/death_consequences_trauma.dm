@@ -210,7 +210,7 @@
 		if (base_degradation_reduction_per_second_while_alive < 0) // if you wanna die slowly while alive, go ahead bud
 			increase -= base_degradation_reduction_per_second_while_alive
 
-	if (HAS_TRAIT(owner, TRAIT_STASIS))
+	if (HAS_TRAIT(owner, TRAIT_STASIS) || owner.has_reagent(/datum/reagent/cryostylane, needs_metabolizing = FALSE)) // Cryostylane gives a stasis-like effect, so I'm throwing this here.
 		increase *= stasis_passive_degradation_multiplier
 
 	return increase
@@ -330,14 +330,14 @@
 
 	// The constantly decreasing degradation will constantly lower the minimum stamina damage, and thus, if we DONT check a range of staminaloss,
 	// we will always consider it "above" our minimum, and thus never delay stamina regen.
-	var/owner_staminaloss = owner.getStaminaLoss()
+	var/owner_staminaloss = owner.get_stamina_loss()
 	if (minimum_stamina_damage <= 0)
 		return
 	if (owner_staminaloss > minimum_stamina_damage)
 		return
 
 	var/final_adjustment = max((minimum_stamina_damage - owner_staminaloss), 0)
-	owner.adjustStaminaLoss(final_adjustment) // we adjust instead of set for things like stamina regen timer
+	owner.adjust_stamina_loss(final_adjustment) // we adjust instead of set for things like stamina regen timer
 
 /**
  * Sends a flavorful to_chat to the target, picking from degradation_messages[current_degradation_level]. Can fail to send one if no message is found.

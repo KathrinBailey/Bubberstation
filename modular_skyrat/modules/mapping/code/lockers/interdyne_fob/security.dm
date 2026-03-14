@@ -26,8 +26,8 @@
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/clothing/suit/toggle/jacket/sec/old/syndicate(src)
 	new /obj/item/clothing/mask/gas/sechailer/syndicate(src)
-	new /obj/item/clothing/glasses/hud/security/sunglasses/eyepatch/redsec(src)
-	new /obj/item/clothing/glasses/hud/security/sunglasses/redsec(src)
+	new /obj/item/clothing/glasses/hud/security/sunglasses/eyepatch(src)
+	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 
 /obj/structure/closet/secure_closet/interdynefob/brig_officer_locker/PopulateContents()
 	..()
@@ -79,8 +79,8 @@
 		/obj/item/ammo_box/magazine/c35sol_pistol = 6,
 		/obj/item/ammo_box/magazine/c35sol_pistol/stendo = 2,
 		/obj/item/ammo_box/c35sol = 2,
-		/obj/item/ammo_box/magazine/c40sol_rifle/standard = 2,
-		/obj/item/ammo_box/c40sol = 2,
+		/obj/item/ammo_box/magazine/wt550m9 = 2,
+		/obj/item/ammo_box/magazine/wt550m9/wtap = 2,
 		/obj/item/ammo_box/advanced/s12gauge = 2,
 		/obj/item/ammo_box/advanced/s12gauge/rubber = 2,
 	),src)

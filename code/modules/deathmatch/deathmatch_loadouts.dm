@@ -168,7 +168,7 @@
 	gloves = /obj/item/clothing/gloves/tackler/combat/insulated
 	backpack_contents = list(
 		/obj/item/grenade/smokebomb = 2,
-		/obj/item/ammo_box/strilka310 = 2,
+		/obj/item/ammo_box/speedloader/strilka310 = 2,
 	)
 
 /datum/outfit/deathmatch_loadout/battler/druid
@@ -284,7 +284,7 @@
 	display_name = "Coder"
 	desc = "What"
 	l_hand = /obj/item/toy/katana
-	uniform = /obj/item/clothing/under/costume/schoolgirl
+	uniform = /obj/item/clothing/under/costume/seifuku
 	suit = /obj/item/clothing/suit/costume/joker
 	shoes = /obj/item/clothing/shoes/clown_shoes/meown_shoes
 	head = /obj/item/clothing/head/costume/kitty
@@ -351,10 +351,11 @@
 	l_hand = /obj/item/gun/ballistic/shotgun/hook
 	r_hand = /obj/item/gun/ballistic/shotgun/hook
 	uniform = /obj/item/clothing/under/costume/skeleton
-	suit = /obj/item/clothing/suit/hooded/cultrobes/eldritch
+	suit = /obj/item/clothing/suit/chaplainsuit/armor/heretic
 	mask = /obj/item/clothing/mask/gas/cyborg
 	shoes = /obj/item/clothing/shoes/sandal
 	belt = /obj/item/melee/cleric_mace
+	head = /obj/item/clothing/head/helmet/chaplain/heretic
 
 /datum/outfit/deathmatch_loadout/battler/cowboy
 	name = "Deathmatch: Cowboy"
@@ -568,7 +569,7 @@
 	neck = /obj/item/bedsheet/captain
 	glasses = /obj/item/clothing/glasses/sunglasses
 	gloves = /obj/item/clothing/gloves/captain
-	belt = /obj/item/storage/belt/sabre
+	belt = /obj/item/storage/belt/sheath/sabre
 	l_hand = /obj/item/gun/energy/laser/captain
 	r_pocket = /obj/item/assembly/flash
 	l_pocket = /obj/item/melee/baton/telescopic
@@ -832,7 +833,7 @@
 		/obj/item/etherealballdeployer,
 	)
 
-	mutations_to_add = list(/obj/item/dnainjector/shock) // pretend ethereals are interesting
+	mutations_to_add = list(/datum/mutation/shock) // pretend ethereals are interesting
 
 /datum/outfit/deathmatch_loadout/plasmamen
 	name = "Deathmatch: Plasmaman Species"
@@ -873,7 +874,7 @@
 	head = /obj/item/clothing/head/soft/rainbow
 	glasses = null
 	ears = /obj/item/radio/headset
-	neck = /obj/item/clothing/neck/petcollar
+	neck = /obj/item/clothing/neck/petcollar/wearable
 	//suit
 	uniform = /obj/item/clothing/under/color/rainbow
 	l_pocket = /obj/item/toy/cattoy
@@ -924,8 +925,8 @@
 	uniform = /obj/item/clothing/under/color/black
 	id_trim = null
 	belt = /obj/item/melee/cultblade/dagger
-	l_pocket = /obj/item/flashlight/flare/culttorch
-	r_pocket = /obj/item/flashlight/flare/culttorch
+	l_pocket = /obj/item/flashlight/flare/torch/red/on
+	r_pocket = /obj/item/flashlight/flare/torch/red/on
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/cult/alt
 	l_hand = /obj/item/shield/mirror // the dreaded return!!
@@ -945,15 +946,15 @@
 	desc = "Prove Nar'sie's superiority with your well-balanced blood magicks."
 	//species_override = /datum/species/plasmaman
 
-	head = /obj/item/clothing/head/hooded/cult_hoodie/berserkerhood
+	head = /obj/item/clothing/head/hooded/cult_hoodie
 	neck = /obj/item/clothing/neck/heretic_focus/crimson_medallion
-	suit = /obj/item/clothing/suit/hooded/cultrobes/berserker
+	suit = /obj/item/clothing/suit/hooded/cultrobes
 	suit_store = /obj/item/melee/sickly_blade/cursed
 	uniform = /obj/item/clothing/under/color/red
 	id_trim = null
 	belt = /obj/item/melee/cultblade/dagger
-	l_pocket = /obj/item/flashlight/flare/culttorch
-	r_pocket = /obj/item/flashlight/flare/culttorch
+	l_pocket = /obj/item/flashlight/flare/torch/red/on
+	r_pocket = /obj/item/flashlight/flare/torch/red/on
 	gloves = /obj/item/clothing/gloves/color/red
 	shoes = /obj/item/clothing/shoes/cult
 	l_hand = null
@@ -999,9 +1000,9 @@
 	display_name = "Heretic Warrior"
 	desc = "Prove the furious strength of the Mansus!"
 
-	head = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
+	head = /obj/item/clothing/head/hooded/cult_hoodie/eldritch/blade
 	neck = /obj/item/clothing/neck/heretic_focus
-	suit = /obj/item/clothing/suit/hooded/cultrobes/eldritch
+	suit = /obj/item/clothing/suit/hooded/cultrobes/eldritch/blade
 	suit_store = /obj/item/melee/sickly_blade/dark
 	uniform = /obj/item/clothing/under/color/darkgreen
 	id_trim = null
@@ -1024,8 +1025,7 @@
 	// I mean is it really that bad if they don't even know half this stuff is added to them.
 	// It's like, forbidden knowledge. It fits with the mansus theme - great excuse for poor design!
 	knowledge_to_grant = list(
-		/datum/heretic_knowledge/blade_grasp,
-		/datum/heretic_knowledge/blade_dance,
+		/datum/heretic_knowledge/limited_amount/starting/base_blade,
 		/datum/heretic_knowledge/blade_upgrade/blade,
 	)
 
@@ -1054,8 +1054,8 @@
 	belt = /obj/item/storage/belt/unfathomable_curio
 	gloves = null
 	shoes = /obj/item/clothing/shoes/winterboots/ice_boots
-	l_pocket = /obj/item/ammo_box/strilka310/lionhunter
-	r_pocket = /obj/item/ammo_box/strilka310/lionhunter
+	l_pocket = /obj/item/ammo_box/speedloader/strilka310/lionhunter
+	r_pocket = /obj/item/ammo_box/speedloader/strilka310/lionhunter
 
 	back = /obj/item/gun/ballistic/rifle/lionhunter // for his neutral b, he wields a gun
 
@@ -1067,7 +1067,7 @@
 	)
 
 	knowledge_to_grant = list(
-		/datum/heretic_knowledge/cosmic_grasp,
+		/datum/heretic_knowledge/limited_amount/starting/base_cosmic,
 	)
 
 	spells_to_add = list(

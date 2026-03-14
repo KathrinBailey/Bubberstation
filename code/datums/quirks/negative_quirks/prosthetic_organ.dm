@@ -1,4 +1,5 @@
-/datum/quirk/prosthetic_organ
+// BUBBER EDIT: moved to modular_zubbers\code\datums\quirks\negative_quirks\prosthetic_organ_bubber.dm
+/* /datum/quirk/prosthetic_organ
 	name = "Prosthetic Organ"
 	desc = "An accident caused you to lose one of your organs. Because of this, you now have a surplus prosthetic!"
 	icon = FA_ICON_LUNGS
@@ -29,7 +30,7 @@
 		preferred_organ = GLOB.organ_choice[pick(GLOB.organ_choice)]
 
 	var/list/possible_organ_slots = organ_slots.Copy()
-	if(HAS_TRAIT(human_holder, TRAIT_NOBLOOD))
+	if(!CAN_HAVE_BLOOD(human_holder))
 		possible_organ_slots -= ORGAN_SLOT_HEART
 	if(HAS_TRAIT(human_holder, TRAIT_NOBREATH))
 		possible_organ_slots -= ORGAN_SLOT_LUNGS
@@ -72,3 +73,4 @@
 	if(old_organ)
 		old_organ.Insert(quirk_holder, special = TRUE)
 	old_organ = null
+ */

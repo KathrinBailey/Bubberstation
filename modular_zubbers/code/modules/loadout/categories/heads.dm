@@ -1,3 +1,5 @@
+//Title Capitalization for names please!!!
+
 /datum/loadout_item/head/pinwheel_hat //sprites by Keila.
 	name = "Pinwheel Hat"
 	item_path = /obj/item/clothing/head/helmet/toggleable/pinwheel
@@ -19,21 +21,6 @@
 	name = "Kabrus Utility Helmet"
 	item_path = /obj/item/clothing/head/helmet/abductor/fake
 	donator_only = TRUE //Dono item for MyphicBowser
-
-/datum/loadout_item/head/hats/warden/drill
-	name = "Warden's Campaign Hat"
-	item_path = /obj/item/clothing/head/hats/warden/drill
-
-/datum/loadout_item/head/hats/warden/police/patrol
-	name = "police patrol cap"
-	item_path = /obj/item/clothing/head/hats/warden/police/patrol
-	restricted_roles = list(ALL_JOBS_SEC)
-	can_be_reskinned = TRUE
-
-/datum/loadout_item/head/helmet/sec/futuristic
-	name = "futuristic security helmet"
-	item_path = /obj/item/clothing/head/helmet/sec/futuristic
-	restricted_roles = list(ALL_JOBS_SEC)
 
 /datum/loadout_item/head/sombrero
 	name = "Sombrero"
@@ -63,91 +50,92 @@
 	donator_only = TRUE
 	restricted_roles = list(JOB_NT_REP)
 
-/datum/loadout_item/head/security_garrison
-	name = "Security garrison cap"
-	item_path = /obj/item/clothing/head/security_garrison
-	restricted_roles = list(ALL_JOBS_SEC)
-	can_be_reskinned = TRUE
+// SECOFF
 
-/datum/loadout_item/head/security_cap
-	name = "Security cap"
-	item_path = /obj/item/clothing/head/security_cap
+/datum/loadout_item/head/security_helmet
+	name = "Security Helmet"
+	item_path = /obj/item/clothing/head/helmet/sec
 	restricted_roles = list(ALL_JOBS_SEC)
-	can_be_reskinned = TRUE
 
-/datum/loadout_item/head/security_cap/soft
-	name = "Security cap (soft)"
+/datum/loadout_item/head/head/soft/sec
+	name = "Security Cap"
 	item_path = /obj/item/clothing/head/soft/sec
 	restricted_roles = list(ALL_JOBS_SEC)
-	can_be_reskinned = FALSE
 
 /datum/loadout_item/head/security_cap/veteran
-	name = "Veteran's security cap (soft)"
+	name = "Veteran's Soft Security Cap"
 	item_path = /obj/item/clothing/head/soft/veteran
 	restricted_roles = list(ALL_JOBS_SEC)
-	can_be_reskinned = FALSE
-
-/datum/loadout_item/head/security_cap/colonial
-	name = "Imperial police cap"
-	item_path = /obj/item/clothing/head/hats/colonial/nri_police
-	restricted_roles = list(ALL_JOBS_SEC, JOB_CUSTOMS_AGENT)
-	can_be_reskinned = FALSE
 
 /datum/loadout_item/head/security_beanie
-	name = "Security beanie"
+	name = "Security Beanie"
 	item_path = /obj/item/clothing/head/security_beanie
 	restricted_roles = list(ALL_JOBS_SEC)
 
-/datum/loadout_item/head/beret/sec/peacekeeper
-	name = "Peacekeeper beret"
-	item_path = /obj/item/clothing/head/beret/sec/peacekeeper
+/datum/loadout_item/head/beret/sec/viro
+	name = "Security Beret"
+	item_path = /obj/item/clothing/head/beret/sec/viro
 	restricted_roles = list(ALL_JOBS_SEC)
 
-/datum/loadout_item/head/beret/sec/peacekeeper/white
-	name = "Peacekeeper beret (White)"
-	item_path = /obj/item/clothing/head/beret/sec/peacekeeper/white
-	restricted_roles = list(ALL_JOBS_SEC)
+// WARDEN
 
-/datum/loadout_item/head/helmet/sec/terra
-	name = "Sol police helmet"
-	item_path = /obj/item/clothing/head/helmet/sec/terra
-	restricted_roles = list(ALL_JOBS_SEC)
+/datum/loadout_item/head/hats/warden/viro
+	name = "Warden's Service Cap"
+	item_path = /obj/item/clothing/head/hats/warden/viro
+	restricted_roles = list(JOB_WARDEN)
 
-/datum/loadout_item/head/hats/warden/police/patrol
-	name = "Warden's police cap"
-	item_path = /obj/item/clothing/head/hats/warden/police/patrol
-	restricted_roles = list(ALL_JOBS_SEC)
-	can_be_reskinned = TRUE
+/datum/loadout_item/head/hats/warden/viro/alt
+	name = "Warden's Service Cap"
+	item_path = /obj/item/clothing/head/hats/warden/viro/alt
+	restricted_roles = list(JOB_WARDEN)
 
-/datum/loadout_item/head/helmet/sec/redsec
-	name = "Security helmet (Redsec)"
-	item_path = /obj/item/clothing/head/helmet/sec/redsec
-	restricted_roles = list(ALL_JOBS_SEC)
+/datum/loadout_item/head/hats/warden/drill/viro
+	name = "Warden's Campaign Cover"
+	item_path = /obj/item/clothing/head/hats/warden/drill/viro
+	restricted_roles = list(JOB_WARDEN)
 
-/datum/loadout_item/head/helmet/nri_police
-	name = "Imperial police helmet"
-	item_path = /obj/item/clothing/head/helmet/nri_police
-	restricted_roles = list(ALL_JOBS_SEC, JOB_CUSTOMS_AGENT)
+/datum/loadout_item/head/hats/warden/viro/beret
+	name = "Warden's Beret"
+	item_path = /obj/item/clothing/head/hats/warden/viro/beret
+	restricted_roles = list(JOB_WARDEN)
 
-/datum/loadout_item/head/hats/security_kepi
-	name = "Security kepi"
-	item_path = /obj/item/clothing/head/security_kepi
-	restricted_roles = list(ALL_JOBS_SEC)
-	can_be_reskinned = TRUE
+/datum/loadout_item/head/hats/soft/sec/warden
+	name = "Warden's Cap"
+	item_path = /obj/item/clothing/head/soft/sec/warden
+	restricted_roles = list(JOB_WARDEN)
 
-/datum/loadout_item/head/beret/sec/peacekeeper/armadyne
-	name = "Armadyne corporate beret"
-	item_path = /obj/item/clothing/head/beret/sec/peacekeeper/armadyne
-	restricted_roles = list(ALL_JOBS_SEC)
+// HOS
 
-/datum/loadout_item/head/helmet/sec/peacekeeper/security_medic
-	name = "Security Medic helmet"
-	item_path = /obj/item/clothing/head/helmet/sec/peacekeeper/security_medic
-	restricted_roles = list(JOB_SECURITY_MEDIC)
+/datum/loadout_item/head/hats/hos/cap
+	name = "Head of Security's Cap"
+	item_path = /obj/item/clothing/head/hats/hos/cap
+	restricted_roles = list(JOB_HEAD_OF_SECURITY)
 
-/datum/loadout_item/head/beret/sec/peacekeeper/security_medic
-	name = "Security medic beret"
-	item_path = /obj/item/clothing/head/beret/sec/peacekeeper/security_medic
+/datum/loadout_item/head/hats/hos/cap/beret
+	name = "Head of Security's Beret"
+	item_path = /obj/item/clothing/head/hats/hos/cap/beret
+	restricted_roles = list(JOB_HEAD_OF_SECURITY)
+
+/datum/loadout_item/head/helmet/sec/hos
+	name = "Head of Security's Helmet"
+	item_path = /obj/item/clothing/head/helmet/sec/hos
+	restricted_roles = list(JOB_HEAD_OF_SECURITY)
+
+/datum/loadout_item/head/hats/soft/sec/hos
+	name = "Head of Security's Cap"
+	item_path = /obj/item/clothing/head/soft/sec/hos
+	restricted_roles = list(JOB_HEAD_OF_SECURITY)
+
+/datum/loadout_item/head/hats/hos/cap/beret
+	name = "Head of Security's Cowboy Hat"
+	item_path = /obj/item/clothing/head/hats/hos/cap/cowboy
+	restricted_roles = list(JOB_HEAD_OF_SECURITY)
+
+//
+
+/datum/loadout_item/head/beret/sec/security_medic
+	name = "Security Medic Beret"
+	item_path = /obj/item/clothing/head/beret/sec/security_medic
 	restricted_roles = list(JOB_SECURITY_MEDIC)
 
 /datum/loadout_item/head/lace_bow
@@ -157,7 +145,7 @@
 
 /datum/loadout_item/head/tactical_maid_headband //Donor item for skyefree
 	name = "Tactical Maid Headband"
-	item_path = /obj/item/clothing/head/costume/maidheadband/tactical_maid
+	item_path = /obj/item/clothing/head/costume/maid_headband/syndicate
 	donator_only = TRUE
 
 /datum/loadout_item/head/mime_bunny_ears
@@ -169,9 +157,27 @@
 	item_path = /obj/item/clothing/head/costume/kabuto
 
 /datum/loadout_item/head/bunny_ears_headband
-	name = "Bunny ears headband"
+	name = "Bunny Ears Headband"
 	item_path = /obj/item/clothing/head/playbunnyears
 
 /datum/loadout_item/head/soft/galfedcap
-	name = "Galactic Federation cap"
+	name = "Galactic Federation Cap"
 	item_path = /obj/item/clothing/head/soft/galfedcap
+
+/datum/loadout_item/head/soft/frontier_colonist
+	name = "Frontier Cap"
+	item_path = /obj/item/clothing/head/soft/frontier_colonist
+
+/datum/loadout_item/head/skull
+	name = "Skull Helmet"
+	item_path = /obj/item/clothing/head/helmet/skull/fake
+
+/datum/loadout_item/head/security_cap/colonial
+	name = "Imperial Police Cap"
+	item_path = /obj/item/clothing/head/hats/colonial/nri_police
+	restricted_roles = list(JOB_CUSTOMS_AGENT)
+
+/datum/loadout_item/head/helmet/nri_police
+	name = "Imperial Police Helmet"
+	item_path = /obj/item/clothing/head/helmet/nri_police
+	restricted_roles = list(JOB_CUSTOMS_AGENT)

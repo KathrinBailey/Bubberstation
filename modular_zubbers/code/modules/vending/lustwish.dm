@@ -20,9 +20,20 @@
 				/obj/item/clothing/suit/jacket/tailcoat = 6,
 				/obj/item/clothing/under/costume/loincloth/sensor = 6,
 				/obj/item/clothing/under/costume/loincloth/cloth/sensor = 6,
+				/obj/item/clothing/shoes/jackboots/toeless = 6,
+			)
+		),
+
+	list(
+			"name" = "Toys",
+			"icon" = FA_ICON_MAGIC_WAND_SPARKLES,
+			"products" = list(
+				/obj/item/clicker = 6,
+
 			)
 		)
 	)
+
 
 	zubbers_premium = list(
 		/obj/item/clothing/neck/kink_collar/locked/gps = 3,

@@ -68,7 +68,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	for(var/i in 1 to length(channels))
 		var/channel_name = channels[i]
 		var/channel_token = GLOB.channel_tokens[channel_name]
-		var/channel_span_class = get_radio_span(GLOB.radiochannels[channel_name])
+		var/channel_span_class = get_radio_span(GLOB.default_radio_channels[channel_name])
 
 		if(i == 1)
 			available_channels += "<li><b>[span_class(channel_span_class, MODE_TOKEN_DEPARTMENT)]</b> or <b>[span_class(channel_span_class, channel_token)]</b> for <b>[span_class(channel_span_class, channel_name)]</b></li>"
@@ -183,7 +183,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 
 /obj/item/radio/headset/syndicate/alt/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/wearertargeting/earprotection, list(ITEM_SLOT_EARS))
+	AddComponent(/datum/component/wearertargeting/earprotection)
 
 /obj/item/radio/headset/syndicate/alt/leader
 	name = "team leader headset"
@@ -207,7 +207,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 
 /obj/item/radio/headset/headset_sec/alt/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/wearertargeting/earprotection, list(ITEM_SLOT_EARS))
+	AddComponent(/datum/component/wearertargeting/earprotection)
 
 /obj/item/radio/headset/headset_eng
 	name = "engineering radio headset"
@@ -274,12 +274,12 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 
 /obj/item/radio/headset/heads
 	command = TRUE
+	icon_state = "com_headset"
+	worn_icon_state = "com_headset"
 
 /obj/item/radio/headset/heads/captain
 	name = "\proper the captain's headset"
 	desc = "The headset of the king."
-	icon_state = "com_headset"
-	worn_icon_state = "com_headset"
 	keyslot = /obj/item/encryptionkey/heads/captain
 
 /obj/item/radio/headset/heads/captain/alt
@@ -290,27 +290,21 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 
 /obj/item/radio/headset/heads/captain/alt/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/wearertargeting/earprotection, list(ITEM_SLOT_EARS))
+	AddComponent(/datum/component/wearertargeting/earprotection)
 
 /obj/item/radio/headset/heads/rd
 	name = "\proper the research director's headset"
 	desc = "Headset of the fellow who keeps society marching towards technological singularity."
-	icon_state = "com_headset"
-	worn_icon_state = "com_headset"
 	keyslot = /obj/item/encryptionkey/heads/rd
 
 /obj/item/radio/headset/heads/hos
 	name = "\proper the head of security's headset"
 	desc = "The headset of the man in charge of keeping order and protecting the station."
-	icon_state = "com_headset"
-	worn_icon_state = "com_headset"
 	keyslot = /obj/item/encryptionkey/heads/hos
 
 /obj/item/radio/headset/heads/hos/advisor
 	name = "\proper the veteran security advisor headset"
 	desc = "The headset of the man who was in charge of keeping order and protecting the station..."
-	icon_state = "com_headset"
-	worn_icon_state = "com_headset"
 	keyslot = /obj/item/encryptionkey/heads/hos
 	command = FALSE
 
@@ -322,34 +316,26 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 
 /obj/item/radio/headset/heads/hos/alt/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/wearertargeting/earprotection, list(ITEM_SLOT_EARS))
+	AddComponent(/datum/component/wearertargeting/earprotection)
 
 /obj/item/radio/headset/heads/ce
 	name = "\proper the chief engineer's headset"
 	desc = "The headset of the guy in charge of keeping the station powered and undamaged."
-	icon_state = "com_headset"
-	worn_icon_state = "com_headset"
 	keyslot = /obj/item/encryptionkey/heads/ce
 
 /obj/item/radio/headset/heads/cmo
 	name = "\proper the chief medical officer's headset"
 	desc = "The headset of the highly trained medical chief."
-	icon_state = "com_headset"
-	worn_icon_state = "com_headset"
 	keyslot = /obj/item/encryptionkey/heads/cmo
 
 /obj/item/radio/headset/heads/hop
 	name = "\proper the head of personnel's headset"
 	desc = "The headset of the guy who will one day be captain."
-	icon_state = "com_headset"
-	worn_icon_state = "com_headset"
 	keyslot = /obj/item/encryptionkey/heads/hop
 
 /obj/item/radio/headset/heads/qm
 	name = "\proper the quartermaster's headset"
 	desc = "The headset of the guy who runs the cargo department."
-	icon_state = "com_headset"
-	worn_icon_state = "com_headset"
 	keyslot = /obj/item/encryptionkey/heads/qm
 
 /obj/item/radio/headset/headset_cargo
@@ -414,7 +400,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 
 /obj/item/radio/headset/headset_cent/alt/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/wearertargeting/earprotection, list(ITEM_SLOT_EARS))
+	AddComponent(/datum/component/wearertargeting/earprotection)
 
 /obj/item/radio/headset/headset_cent/alt/leader
 	command = TRUE
@@ -456,7 +442,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 /obj/item/radio/headset/screwdriver_act(mob/living/user, obj/item/tool)
 	if(keyslot || keyslot2)
 		for(var/ch_name in channels)
-			SSradio.remove_object(src, GLOB.radiochannels[ch_name])
+			SSradio.remove_object(src, GLOB.default_radio_channels[ch_name])
 			secure_radio_connections[ch_name] = null
 
 		if(keyslot)
@@ -475,25 +461,23 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	return TRUE
 
 /obj/item/radio/headset/attackby(obj/item/W, mob/user, list/modifiers, list/attack_modifiers)
-	if(istype(W, /obj/item/encryptionkey))
-		if(keyslot && keyslot2)
-			to_chat(user, span_warning("The headset can't hold another key!"))
-			return
-
-		if(!keyslot)
-			if(!user.transferItemToLoc(W, src))
-				return
-			keyslot = W
-
-		else
-			if(!user.transferItemToLoc(W, src))
-				return
-			keyslot2 = W
-
-
-		recalculateChannels()
-	else
+	if(!istype(W, /obj/item/encryptionkey))
 		return ..()
+
+	if(keyslot && keyslot2)
+		to_chat(user, span_warning("The headset can't hold another key!"))
+		return
+
+	if(!keyslot)
+		if(!user.transferItemToLoc(W, src))
+			return
+		keyslot = W
+	else
+		if(!user.transferItemToLoc(W, src))
+			return
+		keyslot2 = W
+
+	recalculateChannels()
 
 /obj/item/radio/headset/recalculateChannels()
 	. = ..()
@@ -505,7 +489,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 		special_channels |= keyslot2.special_channels
 
 		for(var/ch_name in channels)
-			secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])
+			secure_radio_connections[ch_name] = add_radio(src, GLOB.default_radio_channels[ch_name])
 
 	// Updates radio languages entirely for the mob wearing the headset
 	var/mob/mob_loc = loc
