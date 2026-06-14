@@ -50,6 +50,7 @@
 	/// can this print any round of any caliber given a correct ammo_box? (you varedit this at your own risk, especially if used in a player-facing context.)
 	/// does not force ammo to load in. just makes it able to print wacky ammotypes e.g. lionhunter 7.62, techshells
 	var/adminbus = FALSE
+	var/datum/material_container/materials
 
 /obj/machinery/ammo_workbench/unlocked
 	allowed_harmful = TRUE
@@ -66,9 +67,9 @@
 	)
 
 /obj/machinery/ammo_workbench/Initialize(mapload)
-	AddComponent( \
-		/datum/component/material_container, \
-		SSmaterials.materials_by_category[MAT_CATEGORY_ITEM_MATERIAL], \
+	materials = new( \
+		src, \
+		SSmaterials.get_materials_by_flag(MATERIAL_SILO_STORED), \
 		200000, \
 		MATCONTAINER_EXAMINE, \
 		allowed_items = /obj/item/stack, \
@@ -78,7 +79,6 @@
 
 /obj/machinery/ammo_workbench/examine(mob/user)
 	. += ..()
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Storing up to <b>[materials.max_amount]</b> material units.<br>Material consumption at <b>[creation_efficiency*100]%</b>.")
 
@@ -89,7 +89,7 @@
 		ui.open()
 
 	if(shocked)
-		shock(user, 80)
+		workbench_shock(user, 80)
 
 /obj/machinery/ammo_workbench/proc/update_ammotypes()
 	LAZYCLEARLIST(valid_casings)
@@ -98,7 +98,7 @@
 		return
 	var/obj/item/ammo_casing/ammo_type = loaded_magazine.ammo_type
 	var/ammo_caliber = initial(ammo_type.caliber)
-	var/obj/item/ammo_casing/ammo_parent_type = type2parent(ammo_type)
+	var/obj/item/ammo_casing/ammo_parent_type = ammo_type::parent_type
 
 	if(loaded_magazine.multitype)
 		if(ammo_caliber == initial(ammo_parent_type.caliber) && ammo_caliber != null)
@@ -171,11 +171,10 @@
 	data["turboBoost"] = turbo_boost
 
 	data["materials"] = list()
-	var/datum/component/material_container/mat_container = GetComponent(/datum/component/material_container)
-	if (mat_container)
-		for(var/mat in mat_container.materials)
+	if (materials)
+		for(var/mat in materials.materials)
 			var/datum/material/M = mat
-			var/amount = mat_container.materials[M]
+			var/amount = materials.materials[M]
 			var/sheet_amount = amount / SHEET_MATERIAL_AMOUNT
 			var/ref = REF(M)
 			data["materials"] += list(list("name" = M.name, "id" = ref, "amount" = sheet_amount))
@@ -226,13 +225,11 @@
 
 		if("Release")
 
-			var/datum/component/material_container/mat_container = GetComponent(/datum/component/material_container)
-
-			if(!mat_container)
+			if(!materials)
 				return
 			var/datum/material/mat = locate(params["id"])
 
-			var/amount = mat_container.materials[mat]
+			var/amount = materials.materials[mat]
 			if(!amount)
 				return
 
@@ -247,7 +244,7 @@
 
 			var/sheets_to_remove = round(min(desired,50,stored_amount))
 
-			mat_container.retrieve_stack(sheets_to_remove, mat, loc)
+			materials.retrieve_stack(sheets_to_remove, mat, loc)
 			. = TRUE
 
 		if("ReadDisk")
@@ -343,8 +340,6 @@
 
 	if(!loaded_magazine)
 		return
-
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 
 	var/obj/item/ammo_casing/new_casing = new casing_type
 
@@ -457,7 +452,6 @@
 	for(var/datum/stock_part/matter_bin/new_matter_bin in component_parts)
 		mat_capacity += new_matter_bin.tier * (40 * SHEET_MATERIAL_AMOUNT)
 
-	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	materials.max_amount = mat_capacity
 	update_ammotypes()
 
@@ -466,7 +460,15 @@
 	if(loaded_magazine)
 		. += "ammobench_loaded"
 
+/obj/machinery/ammo_workbench/update_icon_state()
+	. = ..()
+	if(panel_open)
+		icon_state = "[initial(icon_state)]_t"
+		return
+	icon_state = initial(icon_state)
+
 /obj/machinery/ammo_workbench/Destroy()
+	QDEL_NULL(materials)
 	QDEL_NULL(wires)
 	if(timer_id)
 		deltimer(timer_id)
@@ -477,7 +479,7 @@
 
 	return ..()
 
-/obj/machinery/ammo_workbench/proc/shock(mob/user, prb)
+/obj/machinery/ammo_workbench/proc/workbench_shock(mob/user, prb)
 	if(machine_stat & (BROKEN|NOPOWER)) // unpowered, no shock
 		return FALSE
 	if(!prob(prb))
@@ -488,9 +490,11 @@
 	else
 		return FALSE
 
+/obj/machinery/ammo_workbench/screwdriver_act(mob/living/user, obj/item/tool)
+	. = ..()
+	return default_deconstruction_screwdriver(user, tool)
+
 /obj/machinery/ammo_workbench/attackby(obj/item/O, mob/user, params)
-	if (default_deconstruction_screwdriver(user, "[initial(icon_state)]_t", initial(icon_state), O))
-		return
 	if(default_deconstruction_crowbar(O))
 		return
 	if(panel_open && is_wire_tool(O))
@@ -642,4 +646,4 @@
 		if(WIRE_DISABLE)
 			A.disabled = !mend
 		if(WIRE_ZAP)
-			A.shock(usr, 50)
+			A.workbench_shock(usr, 50)
